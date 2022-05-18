@@ -42,6 +42,16 @@ local config = {
       -- You can disable default plugins as follows:
       -- ["goolord/alpha-nvim"] = { disable = true },
 
+      {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        run = ":TSUpdate",
+      },
+      {
+        'ur4ltz/surround.nvim',
+        config = function()
+          require"surround".setup { mappings_style = "surround" }
+        end
+      }
       -- You can also add new plugins here as well:
       -- { "andweeb/presence.nvim" },
       -- {
