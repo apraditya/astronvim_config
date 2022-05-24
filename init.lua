@@ -225,6 +225,12 @@ local config = {
     --     ["~/%.config/foo/.*"] = "fooscript",
     --   },
     -- }
+
+    vim.filetype.add {
+      extension = {
+        jbuilder = "ruby",
+      },
+    }
   end,
 }
 
