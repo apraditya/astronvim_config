@@ -91,10 +91,23 @@ local config = {
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
       config.sources = {
+        -- Set a code actions
+        null_ls.builtins.code_actions.eslint_d,
         -- Set a formatter
-        null_ls.builtins.formatting.rufo,
+        null_ls.builtins.formatting.eslint_d,
+        null_ls.builtins.formatting.fixjson,
+        null_ls.builtins.formatting.markdownlint,
+        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.rubocop,
+        null_ls.builtins.formatting.stylelint,
         -- Set a linter
+        null_ls.builtins.diagnostics.editorconfig_checker,
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.diagnostics.jsonlint,
+        null_ls.builtins.diagnostics.markdownlint,
         null_ls.builtins.diagnostics.rubocop,
+        null_ls.builtins.diagnostics.stylelint,
+        null_ls.builtins.diagnostics.yamllint,
       }
       -- set up null-ls's on_attach function
       config.on_attach = function(client)
