@@ -186,6 +186,9 @@ local config = {
       -- ["goolord/alpha-nvim"] = { disable = true },
 
       {
+        'andymass/vim-matchup'
+      },
+      {
         "nvim-treesitter/nvim-treesitter-textobjects",
         run = ":TSUpdate",
       },
@@ -251,6 +254,9 @@ local config = {
     end,
     treesitter = { -- overrides `require("treesitter").setup(...)`
       ensure_installed = { "lua" },
+      matchup = {
+        enable = true,
+      },
       textobjects = {
         select = {
           enable = true,
