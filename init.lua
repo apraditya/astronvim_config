@@ -189,15 +189,6 @@ local config = {
         "nvim-treesitter/nvim-treesitter-textobjects",
         run = ":TSUpdate",
       },
-      {
-        'ur4ltz/surround.nvim',
-        config = function()
-          require"surround".setup {
-            mappings_style = "surround",
-            map_insert_mode = false,
-          }
-        end
-      }
 
       -- You can also add new plugins here as well:
       -- Add plugins, the packer syntax without the "use"
@@ -260,6 +251,56 @@ local config = {
     end,
     treesitter = { -- overrides `require("treesitter").setup(...)`
       ensure_installed = { "lua" },
+      textobjects = {
+        select = {
+          enable = true,
+
+          -- Automatically jump forward to textobj, similar to targets.vim
+          lookahead = true,
+
+          keymaps = {
+            -- You can use the capture groups defined in textobjects.scm
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+          },
+
+          -- You can choose the select mode (default is charwise 'v')
+          selection_modes = {
+            ['@parameter.outer'] = 'v', -- charwise
+            ['@function.outer'] = 'V', -- linewise
+            ['@class.outer'] = '<c-v>', -- blockwise
+          },
+
+          -- If you set this to `true` (default is `false`) then any textobject is
+          -- extended to include preceding xor succeeding whitespace. Succeeding
+          -- whitespace has priority in order to act similarly to eg the built-in
+          -- `ap`.
+          -- include_surrounding_whitespace = true,
+        },
+
+        move = {
+          enable = true,
+          set_jumps = true, -- whether to set jumps in the jumplist
+          goto_next_start = {
+            ["]m"] = "@function.outer",
+            ["]]"] = "@class.outer",
+          },
+          goto_next_end = {
+            ["]M"] = "@function.outer",
+            ["]["] = "@class.outer",
+          },
+          goto_previous_start = {
+            ["[m"] = "@function.outer",
+            ["[["] = "@class.outer",
+          },
+          goto_previous_end = {
+            ["[M"] = "@function.outer",
+            ["[]"] = "@class.outer",
+          },
+        }
+      }
     },
     -- use mason-lspconfig to configure LSP installations
     ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
