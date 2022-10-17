@@ -206,7 +206,7 @@ local config = {
       -- ["goolord/alpha-nvim"] = { disable = true },
 
       {
-        'andymass/vim-matchup'
+        "andymass/vim-matchup",
       },
       {
         "nvim-treesitter/nvim-treesitter-textobjects",
@@ -282,9 +282,9 @@ local config = {
 
           -- You can choose the select mode (default is charwise 'v')
           selection_modes = {
-            ['@parameter.outer'] = 'v', -- charwise
-            ['@function.outer'] = 'V', -- linewise
-            ['@class.outer'] = '<c-v>', -- blockwise
+            ["@parameter.outer"] = "v", -- charwise
+            ["@function.outer"] = "V", -- linewise
+            ["@class.outer"] = "<c-v>", -- blockwise
           },
 
           -- If you set this to `true` (default is `false`) then any textobject is
@@ -313,8 +313,8 @@ local config = {
             ["[M"] = "@function.outer",
             ["[]"] = "@class.outer",
           },
-        }
-      }
+        },
+      },
     },
     -- use mason-lspconfig to configure LSP installations
     ["mason-lspconfig"] = { -- overrides `require("mason-lspconfig").setup(...)`
