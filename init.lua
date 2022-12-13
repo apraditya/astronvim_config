@@ -25,15 +25,15 @@ local config = {
     -- },
   },
 
-  -- Set colorscheme
+  -- Set colorscheme to use
   colorscheme = "default_theme",
 
-  -- Override highlight groups in any theme
+  -- Add highlight groups in any theme
   highlights = {
     -- init = { -- this table overrides highlights in all themes
     --   Normal = { bg = "#000000" },
     -- },
-    -- duskfox = { -- a table of overrides
+    -- duskfox = { -- a table of overrides/changes to the duskfox theme
     --   Normal = { bg = "#000000" },
     -- },
   },
@@ -91,7 +91,7 @@ local config = {
       fg = "#abb2bf",
       bg = "#1e222a",
     },
-    highlights = function(hl) -- or a function that returns a new table of colors to setkj
+    highlights = function(hl) -- or a function that returns a new table of colors to set
       local C = require "default_theme.colors"
 
       hl.Normal = { fg = C.fg, bg = C.bg }
@@ -151,7 +151,7 @@ local config = {
           -- "python",
         },
       },
-      disabled = { -- disable formatting capabilities for the listed clients
+      disabled = { -- disable formatting capabilities for the listed language servers
         -- "sumneko_lua",
       },
       timeout_ms = 1000, -- default format timeout
@@ -165,11 +165,11 @@ local config = {
         -- ["<leader>lf"] = false -- disable formatting keymap
       },
     },
-    -- add to the server on_attach function
+    -- add to the global LSP on_attach function
     -- on_attach = function(client, bufnr)
     -- end,
 
-    -- override the lsp installer server-registration function
+    -- override the mason server-registration function
     -- server_registration = function(server, opts)
     --   require("lspconfig")[server].setup(opts)
     -- end,
@@ -177,7 +177,7 @@ local config = {
     -- Add overrides for LSP server settings, the keys are the name of the server
     ["server-settings"] = {
       -- example for addings schemas to yamlls
-      -- yamlls = {
+      -- yamlls = { -- override table for require("lspconfig").yamlls.setup({...})
       --   settings = {
       --     yaml = {
       --       schemas = {
