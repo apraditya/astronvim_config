@@ -9,7 +9,7 @@ local config = {
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
-    channel = "nightly", -- "stable" or "nightly"
+    channel = "stable", -- "stable" or "nightly"
     version = "latest", -- "latest", tag name, or regex search like "v1.*" to only do updates before v2 (STABLE ONLY)
     branch = "main", -- branch name (NIGHTLY ONLY)
     commit = nil, -- commit hash (NIGHTLY ONLY)
@@ -249,7 +249,7 @@ local config = {
       -- },
     },
     -- All other entries override the require("<key>").setup({...}) call for default plugins
-    ["null-ls"] = function(config)
+    ["null-ls"] = function(config) -- overrides `require("null-ls").setup(config)`
       -- config variable is the default configuration table for the setup functino call
       local null_ls = require "null-ls"
 
@@ -275,7 +275,7 @@ local config = {
         null_ls.builtins.diagnostics.stylelint,
         null_ls.builtins.diagnostics.yamllint,
       }
-      return config -- return final config table to use in require("null-ls").setup(config)
+      return config -- return final config table
     end,
     treesitter = { -- overrides `require("treesitter").setup(...)`
       ensure_installed = { "lua" },
