@@ -1,11 +1,4 @@
---              AstroNvim Configuration Table
--- All configuration changes should go inside of the table below
-
--- You can think of a Lua "table" as a dictionary like data structure the
--- normal format is "key = value". These also handle array like data structures
--- where a value with no key simply has an implicit numeric key
-local config = {
-
+return {
   -- Configure AstroNvim updates
   updater = {
     remote = "origin", -- remote to use
@@ -17,67 +10,24 @@ local config = {
     skip_prompts = false, -- skip prompts about breaking changes
     show_changelog = true, -- show the changelog after performing an update
     auto_quit = false, -- automatically quit the current session after a successful update
-    -- remotes = { -- easily add new remotes to track
-    --   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
-    --   ["remote2"] = "github_user/repo", -- GitHub user/repo shortcut,
-    --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
-    -- },
+    remotes = { -- easily add new remotes to track
+      --   ["remote_name"] = "https://remote_url.come/repo.git", -- full remote url
+      --   ["remote2"] = "github_user/repo", -- GitHub user/repo shortcut,
+      --   ["remote3"] = "github_user", -- GitHub user assume AstroNvim fork
+    },
   },
 
   -- Set colorscheme to use
   colorscheme = "astrodark",
 
-  -- Add highlight groups in any theme
-  highlights = {
-    -- init = { -- this table overrides highlights in all themes
-    --   Normal = { bg = "#000000" },
-    -- },
-    -- duskfox = { -- a table of overrides/changes to the duskfox theme
-    --   Normal = { bg = "#000000" },
-    -- },
-  },
-
-  -- set vim options here (vim.<first_key>.<second_key> =  value)
-  options = {
-    opt = {
-      -- set to true or false etc.
-      relativenumber = true, -- sets vim.opt.relativenumber
-      number = true, -- sets vim.opt.number
-      spell = false, -- sets vim.opt.spell
-      signcolumn = "auto", -- sets vim.opt.signcolumn to auto
-      wrap = false, -- sets vim.opt.wrap
-    },
-    g = {
-      mapleader = " ", -- sets vim.g.mapleader
-      autoformat_enabled = true, -- enable or disable auto formatting at start (lsp.formatting.format_on_save must be enabled)
-      cmp_enabled = true, -- enable completion at start
-      autopairs_enabled = true, -- enable autopairs at start
-      diagnostics_mode = 3, -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
-      icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available, requires :PackerSync after changing)
-      ui_notifications_enabled = true, -- disable notifications when toggling UI elements
-    },
-  },
-  -- If you need more control, you can use the function()...end notation
-  -- options = function(local_vim)
-  --   local_vim.opt.relativenumber = true
-  --   local_vim.g.mapleader = " "
-  --   local_vim.opt.whichwrap = vim.opt.whichwrap - { 'b', 's' } -- removing option from list
-  --   local_vim.opt.shortmess = vim.opt.shortmess + { I = true } -- add to option list
-  --
-  --   return local_vim
-  -- end,
-
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
+    virtual_text = true,
     underline = true,
   },
 
-  -- Extend LSP configuration
   lsp = {
-    -- enable servers that you already have installed without mason
-    servers = {
-      -- "pyright"
-    },
+    -- customize lsp formatting options
     formatting = {
       -- control auto formatting on save
       format_on_save = {
@@ -90,6 +40,7 @@ local config = {
         },
       },
       disabled = { -- disable formatting capabilities for the listed language servers
+        -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
         -- "lua_ls",
       },
       timeout_ms = 1000, -- default format timeout
@@ -97,67 +48,9 @@ local config = {
       --   return true
       -- end
     },
-    -- easily add or disable built in mappings added during LSP attaching
-    mappings = {
-      n = {
-        -- ["<leader>lf"] = false -- disable formatting keymap
-      },
-    },
-    -- add to the global LSP on_attach function
-    -- on_attach = function(client, bufnr)
-    -- end,
-
-    -- override the LSP setup handler function based on server name
-    -- setup_handlers = {
-    --   -- first function changes the default setup handler
-    --   function(server, opts) require("lspconfig")[server].setup(opts) end,
-    --   -- keys for a specific server name will be used for that LSP
-    --   lua_ls = function(server, opts)
-    --     -- custom lua_ls setup handler
-    --     require("lspconfig")["lua_ls"].setup(opts)
-    --   end,
-    -- },
-
-    -- Add overrides for LSP server settings, the keys are the name of the server
-    config = {
-      -- example for addings schemas to yamlls
-      -- yamlls = { -- override table for require("lspconfig").yamlls.setup({...})
-      --   settings = {
-      --     yaml = {
-      --       schemas = {
-      --         ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*.{yml,yaml}",
-      --         ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-      --         ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
-      --       },
-      --     },
-      --   },
-      -- },
-    },
-  },
-
-  -- Mapping data with "desc" stored directly by vim.keymap.set().
-  --
-  -- Please use this mappings table to set keyboard mapping since this is the
-  -- lower level configuration and more robust one. (which-key will
-  -- automatically pick-up stored data by this setting.)
-  mappings = {
-    -- first key is the mode
-    n = {
-      -- second key is the lefthand side of the map
-      -- mappings seen under group name "Buffer"
-      ["<leader>bb"] = { "<cmd>tabnew<cr>", desc = "New tab" },
-      ["<leader>bc"] = { "<cmd>BufferLinePickClose<cr>", desc = "Pick to close" },
-      ["<leader>bj"] = { "<cmd>BufferLinePick<cr>", desc = "Pick to jump" },
-      ["<leader>bt"] = { "<cmd>BufferLineSortByTabs<cr>", desc = "Sort by tabs" },
-      -- tables with the `name` key will be registered with which-key if it's installed
-      -- this is useful for naming menus
-      ["<leader>b"] = { name = "Buffers" },
-      -- quick save
-      ["<C-s>"] = { ":w!<cr>", desc = "Save File" },
-    },
-    t = {
-      -- setting a mapping to false will disable it
-      -- ["<esc>"] = false,
+    -- enable servers that you already have installed without mason
+    servers = {
+      -- "pyright"
     },
   },
 
@@ -174,7 +67,6 @@ local config = {
           "zipPlugin",
           "netrwPlugin",
           "tarPlugin",
-          "matchparen",
         },
       },
     },
@@ -402,32 +294,6 @@ local config = {
         return opts
       end,
     },
-  },
-
-  -- Customize Heirline options
-  heirline = {
-    -- -- Customize different separators between sections
-    -- separators = {
-    --   tab = { "", "" },
-    -- },
-    -- -- Customize colors for each element each element has a `_fg` and a `_bg`
-    -- colors = function(colors)
-    --   colors.git_branch_fg = astronvim.get_hlgroup "Conditional"
-    --   return colors
-    -- end,
-    -- -- Customize attributes of highlighting in Heirline components
-    -- attributes = {
-    --   -- styling choices for each heirline element, check possible attributes with `:h attr-list`
-    --   git_branch = { bold = true }, -- bold the git branch statusline component
-    -- },
-    -- -- Customize if icons should be highlighted
-    -- icon_highlights = {
-    --   breadcrumbs = false, -- LSP symbols in the breadcrumbs
-    --   file_icon = {
-    --     winbar = false, -- Filetype icon in the winbar inactive windows
-    --     statusline = true, -- Filetype icon in the statusline
-    --   },
-    -- },
   },
 
   -- This function is run last and is a good place to configuring
